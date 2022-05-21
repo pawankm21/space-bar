@@ -7,6 +7,28 @@ import { getSpeed, getAccuracy } from "../utils";
 import Navbar from "../components/navbar";
 import ParticleBg from "../components/particle-bg";
 const Home: NextPage = () => {
+  const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+  const [start, setStart] = useState(0);
+  const [i, setI] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
+  const [chars, setChars] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
+  useKeyPress(key => {
+    setChars(chars + 1);
+    if(!start) {
+      setStart(new Date().getTime());
+    }
+    if(key === text[i]) {
+      setI(i + 1);
+      setCorrect(correct + 1);
+    } else {
+      setIncorrect(incorrect + 1);
+    }
+    setSpeed(getSpeed(chars, start))
+    setAccuracy(getAccuracy(correct, chars))
+  })
   return (
     <div>
       <Head>
