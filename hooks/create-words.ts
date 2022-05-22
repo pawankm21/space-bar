@@ -11,8 +11,8 @@ export default function useCreateWords(isGameOver:boolean) {
     if (!isGameOver) {
       interval = setInterval(() => {
         setText((words) => words + faker.random.word() + " ");
-        if (time > 0.5) {
-          setTime((time) => time - 0.1);
+        if (time > 1) {
+          setTime((time) => time - 0.05);
         }
         console.log(time);
       }, time * 1000);
