@@ -4,6 +4,7 @@ export default function Pacman(props: {
   text: string;
   time: number;
   typed: string[];
+  isGameOver: boolean;
   setLaserx: (val: any) => void;
 }) {
   const laserRef = useRef<HTMLImageElement>(null);
@@ -14,7 +15,7 @@ export default function Pacman(props: {
     );
   }, [props.text, props.typed]);
   useEffect(() => {
-    props.setLaserx(laserRef.current?.getBoundingClientRect().x-100);
+    props.setLaserx(laserRef!.current!.getBoundingClientRect()!.x-100);
   },)
   return (
     <motion.div
@@ -32,11 +33,14 @@ export default function Pacman(props: {
     >
       <motion.img
         ref={laserRef}
-        className=""
-        src="/laser.gif"
+        className="w-36"
+        src={`${
+          props.isGameOver ? "https://i.gifer.com/4xjg.gif" : "/laser.gif"
+        }`}
+        alt="laser"
         initial={{
           rotate: 180,
-          x:100,
+          x: 100,
         }}
       />
       <div className="flex gap-4 bg-gradient-to-r from-[#075DB0] rounded-r-none rounded-l-full pl-24">

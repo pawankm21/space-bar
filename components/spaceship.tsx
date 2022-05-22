@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
-export default function Spaceship(props: { setSpaceShipx: (val:any)=>void }) {
+export default function Spaceship(props: {
+  setSpaceShipx: (val: any) => void;
+  isGameOver: boolean;
+}) {
   const spaceShipRef = useRef<HTMLImageElement>(null);
   props.setSpaceShipx(spaceShipRef.current?.getBoundingClientRect().x);
   return (
@@ -21,7 +24,7 @@ export default function Spaceship(props: { setSpaceShipx: (val:any)=>void }) {
       <motion.img
         animate={{
           x: 0,
-          y: [0, 50, 0, -50, 0],
+          y: props.isGameOver ? -50 : [0, 50, 0, -50, 0],
           transition: {
             duration: 4,
             ease: "easeInOut",

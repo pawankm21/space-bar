@@ -51,9 +51,15 @@ const Home: NextPage = () => {
 
       <main className={`relative w-full min-h-screen`}>
         <Navbar speed={speed} accuracy={accuracy} />
-        <div className="w-full h-auto flex px-12 my-20  overflow-x-clip  ">
-          <Spaceship setSpaceShipx={setSpaceShipx} />
-          <Pacman text={text} time={time} typed={typed} setLaserx={setLaserx} />
+        <div className="w-full h-auto flex px-16  mb-20  overflow-x-clip  ">
+          <Spaceship setSpaceShipx={setSpaceShipx} isGameOver={isgameOver} />
+          <Pacman
+            text={text}
+            time={time}
+            typed={typed}
+            setLaserx={setLaserx}
+            isGameOver={isgameOver}
+          />
         </div>
         <div className="w-full text-center mt-40">
           <input
