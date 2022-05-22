@@ -3,7 +3,7 @@ export default function useKeyPress(callback: (key?: any) => any) {
   const [keyPressed, setKeyPressed] = useState<any>();
   useEffect(() => {
     const downHandler = ({ key }: any) => {
-      if (key.match(/^[A-Za-z0-9]+$/)) {
+      if (key === " " || (key.length === 1 && key.match(/^[A-Za-z0-9]+$/))) {
         setKeyPressed(key);
         callback && callback(key);
       }

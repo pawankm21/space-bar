@@ -36,12 +36,12 @@ const Home: NextPage = () => {
     if (!start) {
       setStart(new Date().getTime());
     }
-    console.log(key, text[i])
+    //console.log(key, text[i])
     if (key === text[i]) {
       setI(i + 1);
       setCorrect(correct + 1);
       setChars(chars + 1);
-    } else if(key !== text[i] && key !== "Backspace") {
+    } else {
       setIncorrect(incorrect + 1);
       setChars(chars + 1);
     }
