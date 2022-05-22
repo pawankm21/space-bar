@@ -1,6 +1,8 @@
-import React from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
-export default function Spaceship() {
+export default function Spaceship(props: { setSpaceShipx: (val:any)=>void }) {
+  const spaceShipRef = useRef<HTMLImageElement>(null);
+  props.setSpaceShipx(spaceShipRef.current?.getBoundingClientRect().x);
   return (
     <motion.div
       className=" w-full"
@@ -14,6 +16,7 @@ export default function Spaceship() {
           ease: "easeInOut",
         },
       }}
+      ref={spaceShipRef}
     >
       <motion.img
         animate={{

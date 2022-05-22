@@ -1,5 +1,6 @@
 //@ts-nocheck
-import { useState, useEffect, useRef } from "react";
+
+import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import useKeyPress from "../hooks/keypress";
@@ -9,8 +10,11 @@ import { ParticleBg } from "../components/particle-bg";
 import Spaceship from "../components/spaceship";
 import Pacman from "../components/pacman";
 import useCreateWords from "../hooks/create-words";
+import useGameOver from "../hooks/game-over";
+import Modal from "../components/modal";
 
 const Home: NextPage = () => {
+  const { isgameOver, setSpaceShipx, setLaserx } = useGameOver();
   const [start, setStart] = useState(0);
   const [i, setI] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -18,11 +22,8 @@ const Home: NextPage = () => {
   const [chars, setChars] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
-  const { words, setWords, time } = useCreateWords();
-  const [text, setText] = useState("");
-  useEffect(() => {
-    setText(words.join(" "));
-  }, [words]);
+  const { text, time } = useCreateWords(isgameOver);
+  const [typed, setTyped] = useState<string[]>([]);
   useKeyPress((key) => {
     setChars(chars + 1);
     if (!start) {
@@ -39,6 +40,7 @@ const Home: NextPage = () => {
   });
   return (
     <div>
+      <Modal isGameOver={isgameOver} clasName={""} />
       <Head>
         <title>Typing Muggle</title>
         <meta name="description" content="Typing game" />
@@ -50,14 +52,15 @@ const Home: NextPage = () => {
       <main className={`relative w-full min-h-screen`}>
         <Navbar speed={speed} accuracy={accuracy} />
         <div className="w-full h-auto flex px-12 my-20  overflow-x-clip  ">
-          <Spaceship />
-          <Pacman words={words} time={time} />
+          <Spaceship setSpaceShipx={setSpaceShipx} />
+          <Pacman text={text} time={time} typed={typed} setLaserx={setLaserx} />
         </div>
         <div className="w-full text-center mt-40">
           <input
             type="text"
             onKeyUp={(e) => {
               if (e.key === "Enter" || e.key === " ") {
+                setTyped([...typed, e.target.value.trim()]);
                 e.target.value = "";
               }
             }}
@@ -70,9 +73,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-//  <div className="w-full absolute bottom-16 flex place-items-center justify-center">
-//    <input
-//      type="text"
-//      className="appearance-none outline-none py-4 px-4 rounded w-1/2 bg-gray-900 font-bold text-4xl text-green-400 font-mono "
-//    />
-//  </div>;
