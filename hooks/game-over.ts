@@ -1,8 +1,9 @@
 import {useState,useEffect} from 'react'
 
 export default function useGameOver() {
-    const [isgameOver, setGameOver] = useState(false);
+    const [isgameOver, setGameOver] = useState(true);
     const [spaceShipx, setSpaceShipx] = useState(0);
+    const [modalText, setModalText] = useState('Start Game');
     const [laserx, setLaserx] = useState(0);
     useEffect(() => {
         console.log("laserx", laserx);
@@ -10,7 +11,8 @@ export default function useGameOver() {
         console.log("gameOver", isgameOver);
         if(laserx<0 ||laserx<spaceShipx){
             setGameOver(true);
+            setModalText("Game Over");
         }
     }, )
-    return {isgameOver, setGameOver, spaceShipx, setSpaceShipx, laserx, setLaserx};
+    return {isgameOver, setGameOver, spaceShipx, setSpaceShipx, laserx, setLaserx, modalText, setModalText};
 }

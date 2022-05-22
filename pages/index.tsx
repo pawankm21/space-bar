@@ -14,7 +14,14 @@ import useGameOver from "../hooks/game-over";
 import Modal from "../components/modal";
 
 const Home: NextPage = () => {
-  const { isgameOver, setSpaceShipx, setLaserx } = useGameOver();
+  const {
+    isgameOver,
+    setSpaceShipx,
+    setLaserx,
+    modalText,
+    setModalText,
+    setGameOver,
+  } = useGameOver();
   const [start, setStart] = useState(0);
   const [i, setI] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -24,6 +31,7 @@ const Home: NextPage = () => {
   const [accuracy, setAccuracy] = useState(0);
   const { text, time } = useCreateWords(isgameOver);
   const [typed, setTyped] = useState<string[]>([]);
+  const [score, setScore] = useState(0);
   useKeyPress((key) => {
     setChars(chars + 1);
     if (!start) {
@@ -37,20 +45,29 @@ const Home: NextPage = () => {
     }
     setSpeed(getSpeed(chars, start));
     setAccuracy(getAccuracy(correct, chars));
+    if (start) {
+      
+      setScore(Math.floor((new Date().getTime() - start) / 1000));
+    }
   });
   return (
     <div>
-      <Modal isGameOver={isgameOver} clasName={""} />
       <Head>
         <title>Typing Muggle</title>
         <meta name="description" content="Typing game" />
         <link rel="icon" href="/logo.png" />
       </Head>
-
+      <Modal
+        isGameOver={isgameOver}
+        clasName={""}
+        modalText={modalText}
+        setModalText={setModalText}
+        setGameOver={setGameOver}
+      />
       <ParticleBg />
 
       <main className={`relative w-full min-h-screen`}>
-        <Navbar speed={speed} accuracy={accuracy} />
+        <Navbar speed={speed} accuracy={accuracy} score={score} />
         <div className="w-full h-auto flex px-16  mb-20  overflow-x-clip  ">
           <Spaceship setSpaceShipx={setSpaceShipx} isGameOver={isgameOver} />
           <Pacman
