@@ -1,17 +1,16 @@
-import { useState } from "react";
+//@ts-nocheck
+import { useState, useEffect, useRef } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { motion } from "framer-motion";
 import useKeyPress from "../hooks/keypress";
 import { getSpeed, getAccuracy } from "../utils";
 import Navbar from "../components/navbar";
-import ParticleBg from "../components/particle-bg";
+import { ParticleBg } from "../components/particle-bg";
 import Spaceship from "../components/spaceship";
 import Pacman from "../components/pacman";
-import { generate } from "../utils/words";
+import useCreateWords from "../hooks/create-words";
+
 const Home: NextPage = () => {
-  console.log(generate(10));
-  const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
   const [start, setStart] = useState(0);
   const [i, setI] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -19,20 +18,25 @@ const Home: NextPage = () => {
   const [chars, setChars] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
-  useKeyPress(key => {
+  const { words, setWords, time } = useCreateWords();
+  const [text, setText] = useState("");
+  useEffect(() => {
+    setText(words.join(" "));
+  }, [words]);
+  useKeyPress((key) => {
     setChars(chars + 1);
-    if(!start) {
+    if (!start) {
       setStart(new Date().getTime());
     }
-    if(key === text[i]) {
+    if (key === text[i]) {
       setI(i + 1);
       setCorrect(correct + 1);
     } else {
       setIncorrect(incorrect + 1);
     }
-    setSpeed(getSpeed(chars, start))
-    setAccuracy(getAccuracy(correct, chars))
-  })
+    setSpeed(getSpeed(chars, start));
+    setAccuracy(getAccuracy(correct, chars));
+  });
   return (
     <div>
       <Head>
@@ -44,10 +48,21 @@ const Home: NextPage = () => {
       <ParticleBg />
 
       <main className={`relative w-full min-h-screen`}>
-        <Navbar speed={12} accuracy={12} />
-        <div className="w-full h-auto flex px-12 mt-16">
+        <Navbar speed={speed} accuracy={accuracy} />
+        <div className="w-full h-auto flex px-12 my-20  overflow-x-clip  ">
           <Spaceship />
-          <Pacman/>
+          <Pacman words={words} time={time} />
+        </div>
+        <div className="w-full text-center mt-40">
+          <input
+            type="text"
+            onKeyUp={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.target.value = "";
+              }
+            }}
+            className="py-2 text-xl px-4 bg-gray-900 border border-green-400 rounded shadow shadow-green-200 text-green-400 font-bold font-mono"
+          />
         </div>
       </main>
     </div>

@@ -28,10 +28,10 @@ export const particleConfig = {
   duration: 0,
   fpsLimit: 60,
   interactivity: {
-    detectsOn: "window",
+    detectsOn: "div",
     events: {
       onClick: {
-        enable: true,
+        enable: false,
         mode: "repulse",
       },
       onDiv: {

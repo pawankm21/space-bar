@@ -2,7 +2,8 @@
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { particleConfig } from "../utils/particles.config";
-export default function ParticleBg() {
+import { memo } from "react";
+export const ParticleBg = memo(() => {
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -15,4 +16,4 @@ export default function ParticleBg() {
       />
     </div>
   );
-}
+});
