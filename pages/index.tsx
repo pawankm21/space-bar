@@ -25,16 +25,19 @@ const Home: NextPage = () => {
   const { text, time } = useCreateWords(isgameOver);
   const [typed, setTyped] = useState<string[]>([]);
   useKeyPress((key) => {
-    setChars(chars + 1);
     if (!start) {
       setStart(new Date().getTime());
     }
+    console.log(key, text[i])
     if (key === text[i]) {
       setI(i + 1);
       setCorrect(correct + 1);
-    } else {
+      setChars(chars + 1);
+    } else if(key !== text[i] && key !== "Backspace") {
       setIncorrect(incorrect + 1);
+      setChars(chars + 1);
     }
+    console.log(correct, chars)
     setSpeed(getSpeed(chars, start));
     setAccuracy(getAccuracy(correct, chars));
   });

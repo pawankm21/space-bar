@@ -5,9 +5,9 @@ export default function useGameOver() {
     const [spaceShipx, setSpaceShipx] = useState(0);
     const [laserx, setLaserx] = useState(0);
     useEffect(() => {
-        console.log("laserx", laserx);
-        console.log("spaceShipx", spaceShipx);
-        console.log("gameOver", isgameOver);
+        //console.log("laserx", laserx);
+        //console.log("spaceShipx", spaceShipx);
+        //console.log("gameOver", isgameOver);
         if(laserx<0 ||laserx<spaceShipx){
             setGameOver(true);
         }

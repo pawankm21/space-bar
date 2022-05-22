@@ -6,7 +6,7 @@ export default function useCreateWords(isGameOver:boolean) {
   const [time, setTime] = useState(2);
 
   useEffect(() => {
-    console.log("isGameOver", isGameOver);
+    //console.log("isGameOver", isGameOver);
     var interval:any;
     if (!isGameOver) {
       interval = setInterval(() => {
@@ -14,7 +14,7 @@ export default function useCreateWords(isGameOver:boolean) {
         if (time > 0.5) {
           setTime((time) => time - 0.1);
         }
-        console.log(time);
+        //console.log(time);
       }, time * 1000);
       return () => clearInterval(interval);
     }
