@@ -37,7 +37,7 @@ export default function Navbar(props: { speed: number; accuracy: number }) {
         alt=""
         className="w-1/3 h-1/3 "
       />
-      <div className="flex gap-4">
+      <div className="flex gap-16">
         <div className=" relative flex place-items-center justify-center">
           <motion.img
             src="/earth.png"
@@ -46,19 +46,19 @@ export default function Navbar(props: { speed: number; accuracy: number }) {
             animate={"animate"}
             initial={"initial"}
           />
-          <h1 className="absolute text-3xl font-bold font-mono bg-black rounded shadow shadow-green-300 border text-green-400 text-center border-green-500 min-w-[4rem] p-2">
-            {props.speed}
+          <h1 className=" text-xl font-bold font-mono bg-black rounded shadow shadow-green-300 border text-green-400 text-center border-green-500  p-2">
+           Speed: {props.speed}
           </h1>
         </div>
-        <div className=" relative flex place-items-center justify-center">
+        <div className=" relative flex place-items-center justify-center ">
           <motion.img
             src="/saturn.png"
             className="w-32 h-32"
             variants={planetAnimation}
             animate={"animate"}
           />
-          <h1 className="absolute text-3xl font-bold font-mono bg-black rounded shadow shadow-green-300 border text-green-400 text-center border-green-500 min-w-[4rem] p-2">
-            {props.accuracy}
+          <h1 className=" text-xl font-bold font-mono bg-black rounded shadow shadow-green-300 border text-green-400 text-center border-green-500 p-2">
+           Accuracy: {props.accuracy}%
           </h1>
         </div>
       </div>
