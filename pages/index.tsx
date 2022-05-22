@@ -56,7 +56,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Typing Muggle</title>
+        <title>Space Bar</title>
         <meta name="description" content="Typing game" />
         <link rel="icon" href="/logo.png" />
       </Head>
