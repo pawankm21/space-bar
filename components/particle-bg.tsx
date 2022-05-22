@@ -3,7 +3,7 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { particleConfig } from "../utils/particles.config";
 import { memo } from "react";
-export const ParticleBg = memo(() => {
+export const ParticleBg = memo(function ParticleBG() {
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
